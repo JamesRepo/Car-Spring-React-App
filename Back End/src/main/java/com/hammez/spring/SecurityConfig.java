@@ -1,5 +1,6 @@
 package com.hammez.spring;
 
+import com.hammez.spring.domain.User;
 import com.hammez.spring.service.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,7 +10,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -36,13 +36,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected  void configure(HttpSecurity http) throws Exception {
-//        http.cors().and().authorizeRequests().antMatchers(HttpMethod.POST, "/login")
-//                .permitAll().anyRequest().authenticated().and()
-//                .addFilterBefore(
-//                        new LoginFilter("/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
-//                .addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-       // http.csrf().disable().authorizeRequests().anyRequest().permitAll();
-        http.cors().and().authorizeRequests().anyRequest().permitAll();
+        http.csrf().disable().cors().and().authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .addFilterBefore(new LoginFilter("/login", authenticationManager()),
+                        UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
