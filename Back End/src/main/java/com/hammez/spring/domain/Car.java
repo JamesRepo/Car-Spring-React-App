@@ -20,7 +20,6 @@ public class Car {
     private String brand;
     private String model;
     private String color;
-    @Column(name="reg", nullable = false, length = 12)
     private String registerNumber;
 
     private int year;
