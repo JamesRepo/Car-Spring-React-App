@@ -158,7 +158,7 @@ class Carlist extends Component {
                         <AddCar addCar={this.addCar} fetchCars={this.fetchCars} />
                     </Grid>
                     <Grid item style={{padding: 20}}>
-                        <CSVLink data={this.state.cars} separator=";">Export CSV</CSVLink>
+                        <CSVLink data={this.state.cars} separator=",">Export CSV</CSVLink>
                     </Grid>
                 </Grid>
                 <ReactTable data={this.state.cars} columns={columns} filterable={true} />
